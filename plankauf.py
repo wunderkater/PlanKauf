@@ -16,7 +16,8 @@ httpAuth = credentials.authorize(httplib2.Http())
 service = apiclient.discovery.build('sheets', 'v4', http = httpAuth)
 
 spreadsheetId = '<id of your Google Sheet>' #  Input your spreadsheet ID from paragraph 2
-range_name = 'ListTitle!A:F' #  Input name of your list, !, and the range of cells from step 2
+list_title = '<Name_of_list>'
+range_name = '!A:F' #  Input name of your list, !, and the range of cells from step 2
 table = service.spreadsheets().values().get(spreadsheetId=spreadsheetId, range=range_name).execute()
 
 Employee_dict = {'Smith': 3, 'Muller': 5, 'Meier': 7, 'Wilson': 9, 'Schneider': 11}
@@ -98,12 +99,12 @@ def get_quantity(message):
                 if call.data == "yes":
                     #  In the value of the range, you need to put the name of our sheet
                     results = service.spreadsheets().values().batchUpdate(spreadsheetId=spreadsheetId, 
-                    body={ "valueInputOption": "USER_ENTERED", "data": [{"range": "Listtitle" + "!" +
+                    body={ "valueInputOption": "USER_ENTERED", "data": [{"range": list_title + "!" +
                     Item_dict.get(item) + str(Employee_dict.get(name)), "majorDimension": "ROWS",
                     "values": [[quantity]]}]}).execute()
                     #  In the value of the range, you need to put the name of our sheet
                     results = service.spreadsheets().values().batchUpdate(spreadsheetId=spreadsheetId,
-                    body={"valueInputOption": "USER_ENTERED", "data": [{"range": "Listtitle" + "!" +
+                    body={"valueInputOption": "USER_ENTERED", "data": [{"range": list_title + "!" +
                     Item_dict.get(item) + str(Employee_reason_dict.get(name)), "majorDimension": "ROWS",
                     "values": [[reason + ' ' + str(datetime.now().date())]]}]}).execute()
                     bot.send_message(call.message.chat.id, 'Order completed')
