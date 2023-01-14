@@ -16,8 +16,8 @@ httpAuth = credentials.authorize(httplib2.Http())
 service = apiclient.discovery.build('sheets', 'v4', http = httpAuth)
 
 spreadsheetId = '<id of your Google Sheet>' #  Input your spreadsheet ID from paragraph 2
-list_title = '<Name_of_list>'
-range_name = '!A:F' #  Input name of your list, !, and the range of cells from step 2
+list_title = '<Name_of_list>' #  Input name of your list
+range_name = '!A:F' # Here is the range of your cells
 table = service.spreadsheets().values().get(spreadsheetId=spreadsheetId, range=range_name).execute()
 
 Employee_dict = {'Smith': 3, 'Muller': 5, 'Meier': 7, 'Wilson': 9, 'Schneider': 11}
